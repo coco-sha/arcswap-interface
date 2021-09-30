@@ -8,7 +8,7 @@ export const useLiquidity = ({ tokenName, address, swapAddress }) => {
     data: { native_reserve, lp_token_supply } = {},
     isLoading: fetchingTotalLiquidity,
   } = useQuery(
-    [`swapInfo/${tokenName}`, swapAddress],
+    [`swapInfo/${tokenName.toUpperCase()}`, swapAddress],
     async () => {
       return await getSwapInfo(
         swapAddress,
@@ -21,7 +21,7 @@ export const useLiquidity = ({ tokenName, address, swapAddress }) => {
   )
 
   const { data: myLiquidity, isLoading: fetchingMyLiquidity } = useQuery(
-    [`myLiquidity/${tokenName}`, address, native_reserve, lp_token_supply],
+    [`myLiquidity/${tokenName.toUpperCase()}`, address, native_reserve, lp_token_supply],
     async () => {
       const balance = await getLiquidityBalance({
         address: address,
@@ -58,7 +58,7 @@ export const useLiquidity = ({ tokenName, address, swapAddress }) => {
   }
 }
 
-export const useInvalidateLiquidity = (tokenName?: string) => {
+export const useInvalidateLiquidity = (tokenName: string) => {
   const queryClient = useQueryClient()
 
   function invalidateLiquidity() {

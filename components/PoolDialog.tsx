@@ -27,7 +27,7 @@ export const PoolDialog = ({ isShowing, onRequestClose, tokenInfo }) => {
   const { balance: tokenBalance } = useTokenBalance(tokenInfo)
 
   const invalidateBalances = useInvalidateBalances()
-  const invalidateLiquidity = useInvalidateLiquidity()
+  const invalidateLiquidity = useInvalidateLiquidity(tokenInfo.symbol)
 
   const { data: { token_reserve, native_reserve } = {} } = useQuery(
     `swapInfo/${tokenInfo.swap_address}`,

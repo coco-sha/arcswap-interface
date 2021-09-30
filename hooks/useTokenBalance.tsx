@@ -40,14 +40,12 @@ export const useTokenBalance = ({ symbol, token_address }: TokenInfo) => {
   return { balance, isLoading }
 }
 
-export const useInvalidateBalances = (tokenSymbol?: string) => {
+export const useInvalidateBalances = () => {
   const queryClient = useQueryClient()
 
   function invalidateBalances() {
-    queryClient.refetchQueries(
-      `tokenBalance${tokenSymbol ? `/${tokenSymbol}` : ''}`
-    )
+    queryClient.refetchQueries()
   }
 
-  return useCallback(invalidateBalances, [tokenSymbol, queryClient])
+  return useCallback(invalidateBalances, [queryClient])
 }

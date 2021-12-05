@@ -1,3 +1,7 @@
+# Deployments
+
+https://61ac8a263059ca208bcbea7a--fervent-wescoff-911fbe.netlify.app/
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

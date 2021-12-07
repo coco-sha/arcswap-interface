@@ -4,6 +4,13 @@ https://61afc1b0305b24000801748e--fervent-wescoff-911fbe.netlify.app/
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Roadmap
+- Create contract factory: tracks all created pools
+- Router contracts: Best route to  make a swap
+- TWAP: time weighted average price contracts
+- Enhance UI
+- Launch on mainnet
+
 ## Getting Started
 
 First, run the development server:

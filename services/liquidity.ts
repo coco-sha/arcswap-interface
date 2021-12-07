@@ -2,9 +2,10 @@ import {
   SigningCosmWasmClient,
   CosmWasmClient
 } from '@cosmjs/cosmwasm-stargate'
+import { calculateFee, GasPrice } from "@cosmjs/stargate";
 //import { MsgExecuteContract } from '@cosmjs/cosmwasm-stargate/build/codec/cosmwasm/wasm/v1beta1/tx'
-import { toUtf8 } from '@cosmjs/encoding'
-import { coin, StdFee } from '@cosmjs/launchpad'
+//import { toUtf8 } from '@cosmjs/encoding'
+import { StdFee } from '@cosmjs/launchpad'
 import { BroadcastTxResponse } from '@cosmjs/stargate'
 
 export type AddLiquidityInput = {
@@ -21,28 +22,25 @@ export type AddLiquidityInput = {
 export const addLiquidity = async (
   input: AddLiquidityInput
 ): Promise<BroadcastTxResponse> => {
-  let msg1 = {
-    increase_allowance: {
-      amount: `${input.maxToken}`,
-      spender: `${input.swapAddress}`,
-    },
-  }
-  const executeContractMsg1 = {
+  // let msg1 = {
+  //   increase_allowance: {
+  //     amount: `${input.maxToken}`,
+  //     spender: `${input.swapAddress}`,
+  //   },
+  // }
+  // const executeContractMsg1 = {
     
-  }
-  let msg2 = {
-    add_liquidity: {
-      max_token: `${input.maxToken}`,
-      min_liquidity: `${input.minLiquidity}`,
-    },
-  }
-  const executeContractMsg2 = {
+  // }
+  // let msg2 = {
+  //   add_liquidity: {
+  //     max_token: `${input.maxToken}`,
+  //     min_liquidity: `${input.minLiquidity}`,
+  //   },
+  // }
+  // const executeContractMsg2 = {
 
-  }
-  const fee: StdFee = {
-    amount: input.client.fees.exec.amount,
-    gas: (Number(input.client.fees.exec.gas) * 2).toString(),
-  }
+  // }
+  const fee: StdFee =  calculateFee(300_000, GasPrice.fromString('0.002uconst'))
   const executeAddLiquidity = await input.client.signAndBroadcast(
     input.senderAddress,
     [],

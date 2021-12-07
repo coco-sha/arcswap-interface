@@ -1,7 +1,6 @@
 import {
   SigningCosmWasmClient,
   CosmWasmClient,
-  MsgExecuteContractEncodeObject,
 } from '@cosmjs/cosmwasm-stargate'
 //import { toUtf8 } from '@cosmjs/encoding'
 import { coin, StdFee } from '@cosmjs/launchpad'
@@ -59,19 +58,19 @@ export interface swapTokenForNativeInput {
 export const swapTokenForNative = async (
   input: swapTokenForNativeInput
 ): Promise<BroadcastTxResponse> => {
-  const minNative = Math.floor(input.price * (1 - input.slippage))
-  let msg1 = {
-    increase_allowance: {
-      amount: `${input.tokenAmount}`,
-      spender: `${input.swapAddress}`,
-    },
-  }
-  let msg2 = {
-    swap_token_for_native: {
-      min_native: `${minNative}`,
-      token_amount: `${input.tokenAmount}`,
-    },
-  }
+  // const minNative = Math.floor(input.price * (1 - input.slippage))
+  // let msg1 = {
+  //   increase_allowance: {
+  //     amount: `${input.tokenAmount}`,
+  //     spender: `${input.swapAddress}`,
+  //   },
+  // }
+  // let msg2 = {
+  //   swap_token_for_native: {
+  //     min_native: `${minNative}`,
+  //     token_amount: `${input.tokenAmount}`,
+  //   },
+  // }
   return await input.client.signAndBroadcast(
     input.senderAddress,
     [],
@@ -93,24 +92,21 @@ export interface swapTokenForTokenInput {
 export const swapTokenForToken = async (
   input: swapTokenForTokenInput
 ): Promise<BroadcastTxResponse> => {
-  const minOutputToken = Math.floor(input.price * (1 - input.slippage))
-  let msg1 = {
-    increase_allowance: {
-      amount: `${input.tokenAmount}`,
-      spender: `${input.swapAddress}`,
-    },
-  }
-  let msg2 = {
-    swap_token_for_token: {
-      output_min_token: `${minOutputToken}`,
-      input_token_amount: `${input.tokenAmount}`,
-      output_amm_address: input.outputSwapAddress,
-    },
-  }
-  const fee: StdFee = {
-    amount: input.client.fees.exec.amount,
-    gas: (+input.client.fees.exec.gas * 3).toString(),
-  }
+  // const minOutputToken = Math.floor(input.price * (1 - input.slippage))
+  // let msg1 = {
+  //   increase_allowance: {
+  //     amount: `${input.tokenAmount}`,
+  //     spender: `${input.swapAddress}`,
+  //   },
+  // }
+  // let msg2 = {
+  //   swap_token_for_token: {
+  //     output_min_token: `${minOutputToken}`,
+  //     input_token_amount: `${input.tokenAmount}`,
+  //     output_amm_address: input.outputSwapAddress,
+  //   },
+  // }
+  const fee: StdFee =  calculateFee(300_000, GasPrice.fromString('0.002uconst'))
   return await input.client.signAndBroadcast(
     input.senderAddress,
     [],
